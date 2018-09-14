@@ -19,13 +19,13 @@ search = credentials_tw_api.search.tweets(q='marina silva', result_type='popular
 search_keys = {'user': [], 'date': [], 'text':[],'favorite_count':[]}
 
 # Organizando uma lista para cada chave
-for status in busca['statuses']:
-    dict_['user'].append(status['user']['screen_name'])
-    dict_['date'].append(status['created_at'])
-    dict_['text'].append(status['text'])
-    dict_['favorite_count'].append(status['favorite_count'])
+for status in search['statuses']:
+    search_keys['user'].append(status['user']['screen_name'])
+    search_keys['date'].append(status['created_at'])
+    search_keys['text'].append(status['text'])
+    search_keys['favorite_count'].append(status['favorite_count'])
 
 # Estruturando os dados em um dataframe do Pandas
-df = pd.DataFrame(dict_)
+df = pd.DataFrame(search_keys)
 df.sort_values(by='favorite_count', inplace=True, ascending=False)
 print(df.head(5))
