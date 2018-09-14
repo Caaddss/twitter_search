@@ -1,4 +1,4 @@
-from twitter import *
+from twitter import Twitter, OAuth
 import pandas as pd
 try:
     import simplejson as json
@@ -10,13 +10,30 @@ with open("twitter_credentials.json", "r") as api_tokens:
     creds = json.load(api_tokens)
 
 # Instanciando um objeto
-credentials_tw_api = Twitter(auth=OAuth(creds['ACCESS_TOKEN'], creds['ACCESS_TOKEN_SECRET'], creds['CONSUMER_KEY'], creds['CONSUMER_SECRET']))
+credentials_tw_api = Twitter(
+    auth=OAuth(
+        creds['ACCESS_TOKEN'], 
+        creds['ACCESS_TOKEN_SECRET'], 
+        creds['CONSUMER_KEY'], 
+        creds['CONSUMER_SECRET']
+    )
+)
 
 # Criando a busca
-search = credentials_tw_api.search.tweets(q='marina silva', result_type='popular', count='50', lang='pt')
+search = credentials_tw_api.search.tweets(
+    q='marina silva', 
+    count='100', 
+    lang='pt'
+)
+
 
 # Iniciando o dicionário da busca
-search_keys = {'user': [], 'date': [], 'text':[],'favorite_count':[]}
+search_keys = {
+    'user': [], 
+    'date': [], 
+    'text': [],
+    'favorite_count': []
+}
 
 # Organizando uma lista para cada chave
 for status in search['statuses']:
